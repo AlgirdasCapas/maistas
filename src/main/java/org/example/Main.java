@@ -149,7 +149,6 @@ public class Main {
 
 
     static void kurtiVartotoja(User vartotojas){
-
         UserDAO.kurti(vartotojas);
     }
 }
