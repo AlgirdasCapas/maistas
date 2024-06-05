@@ -1,4 +1,4 @@
-package com.example.filmai.utils;
+package org.example.maitinimoIstaiga.utils;
 
 public class BCryptPassword {
 
@@ -37,7 +37,7 @@ public class BCryptPassword {
         boolean password_verified = false;
 
         if (null == stored_hash || !stored_hash.startsWith("$2a$"))
-            throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+            throw new IllegalArgumentException("Invalid hash provided for comparison");
 
         password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
 
