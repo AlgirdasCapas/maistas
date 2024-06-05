@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class MaitinimoIstaigaDAO {
     public static final String URL = "jdbc:mysql://localhost:3306/maistas";
+    private static String query;
 
     public static void kurti(MaitinimoIstaiga istaiga){
 
@@ -47,7 +48,7 @@ public class MaitinimoIstaigaDAO {
 
             ArrayList<MaitinimoIstaiga> istaigos = new ArrayList<>();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String pavadinimas = resultSet.getString("pavadinimas");
                 String kodas = resultSet.getString("kodas");
@@ -56,10 +57,9 @@ public class MaitinimoIstaigaDAO {
                 istaigos.add(new MaitinimoIstaiga(id, pavadinimas, kodas, adresas));
             }
 
-            if (istaigos.isEmpty()){
+            if (istaigos.isEmpty()) {
                 System.out.println("Įstaigų iš šio miesto: " + miestas + " DB-ėje rasti nepavyko.");
-            }
-            else {
+            } else {
                 System.out.println("Rastos tokios įstaigos: \n");
                 System.out.println(istaigos);
             }
@@ -70,5 +70,21 @@ public class MaitinimoIstaigaDAO {
             throwables.printStackTrace();
         }
     }
-}
+        public static void delete (int id) {
+            query = "DELETE FROM maitinimoistaigos WHERE id = ?;";
+            try {
+                Connection connection = DriverManager.getConnection(URL, "root", "");
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+                connection.close();
+                System.out.println("Sėkmigai ištrinta maitinimo įstaiga.");
+            } catch (SQLException e) {
+                System.out.println("Nepavyko ištrinti įrašo!"
+                        + e.getMessage());
+            }
+        }
+    }
+
 

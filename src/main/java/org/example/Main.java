@@ -82,7 +82,7 @@ public class Main {
                     System.out.println("Iveskite rolę: 1=ADMIN, 2=vartotojas ");
                     int role = ivestis4.nextInt();
                     if (role == 1) {
-                        System.out.println("Meniu\n Pridėti maitinimo įstaigą - įveskite 1\n Ieškoti maitinimo įstaigos - įveskite 2");
+                        System.out.println("Meniu\n Pridėti maitinimo įstaigą - įveskite 1\n Ieškoti maitinimo įstaigos - įveskite 2\n Ištrinti maitinimo įstaigą - įveskite 3");
                         Scanner ivestis2 = new Scanner(System.in);
                         int admMeniu = ivestis2.nextInt();
 
@@ -92,7 +92,11 @@ public class Main {
                         } else if (admMeniu == 2) {
                             ieskotiIstaigos();
                             break;
-                        } else {
+                        }
+                        else if (admMeniu == 3) {
+                            trntiIstaiga();
+                            break;
+                        }else {
                             System.out.println("Tokio pasirinkimo nėra");
                         }
                     }
@@ -150,5 +154,12 @@ public class Main {
 
     static void kurtiVartotoja(User vartotojas){
         UserDAO.kurti(vartotojas);
+    }
+
+    static void trntiIstaiga(){
+        System.out.println("Iveskite įstaigos, kurią norite šalinti id: ");
+        Scanner ivestis1 = new Scanner(System.in);
+        int id = ivestis1.nextInt();
+        MaitinimoIstaigaDAO.delete(id);
     }
 }
